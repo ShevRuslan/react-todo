@@ -73,7 +73,7 @@ class AppNavbar extends Component{
         const { classes } = this.props;
         return (
             <div className={classes.root}>
-            <AppBar position="static" color='secondary'>
+            <AppBar position="static" color='primary'>
                 <Toolbar>
                 <Typography className={classes.title} variant="h6" color="inherit" noWrap>
                     React-todo
@@ -84,7 +84,7 @@ class AppNavbar extends Component{
                         <SearchIcon />
                     </div>
                     <InputBase
-                    placeholder="Search…"
+                    placeholder="Поиск"
                     classes={{
                         root: classes.inputRoot,
                         input: classes.inputInput,

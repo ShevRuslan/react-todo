@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AppNavbar from '../app-navbar'
+import CardCreate from '../cart-create'
 //simple component
 // const App = () => {
 //     return (
@@ -10,7 +11,10 @@ import AppNavbar from '../app-navbar'
 export default class App extends Component {
     render () {
         return (
-            <AppNavbar></AppNavbar>
+            <section>
+                <AppNavbar></AppNavbar>
+                <CardCreate></CardCreate>
+           </section>
         )
     }
 };
