@@ -15,22 +15,44 @@ export default class App extends Component {
             {
                 name: 1,
                 text: 1,
+                done: false,
                 id: 1,
             },
             {
                 name: 2,
                 text: 2,
+                done: false,
                 id: 2,
             },
             {
                 name: 3,
                 text: 3,
+                done: false,
                 id: 3,
             },
        ]
     }
     done = (id) => {
-        
+        this.setState(({ todos }) => {
+            const index = todos.findIndex((Element) => Element.id === id);
+            
+            const oldTodoItem = todos[index];
+            const newTodoItem = {
+                ...oldTodoItem,
+                done: true,
+            };
+            
+            const newTodos = [
+                ...todos.slice(0, index),
+                newTodoItem,
+                ...todos.slice(index + 1)
+            ]
+            
+            return {
+                todos: newTodos
+            };
+
+        });
     }
     delete = (id) => {
         this.setState(({ todos }) => {
@@ -48,11 +70,31 @@ export default class App extends Component {
         });
     }
     notDone = (id) => {
-        console.log(id)
+        this.setState(({ todos }) => {
+            const index = todos.findIndex((Element) => Element.id === id);
+            
+            const oldTodoItem = todos[index];
+            const newTodoItem = {
+                ...oldTodoItem,
+                done: false,
+            };
+            
+            const newTodos = [
+                ...todos.slice(0, index),
+                newTodoItem,
+                ...todos.slice(index + 1)
+            ]
+            
+            return {
+                todos: newTodos
+            };
+
+        });
     }
     render() {
         const { todos } = this.state;
-        console.log(`Всего объектов - ${this.state.todos.length}`);
+        console.log(todos);
+        console.log(`Всего объектов - ${todos.length}`);
         return (
             <section>
                 <AppNavbar></AppNavbar>
