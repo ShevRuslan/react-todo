@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import AppNavbar from '../app-navbar'
-import CardCreate from '../cart-create'
+import AppNavbar from '../app-navbar';
+import CardCreate from '../cart-create';
+import TodoList from '../todo-list';
 //simple component
 // const App = () => {
 //     return (
@@ -14,6 +15,7 @@ export default class App extends Component {
             <section>
                 <AppNavbar></AppNavbar>
                 <CardCreate></CardCreate>
+                <TodoList></TodoList>
            </section>
         )
     }
