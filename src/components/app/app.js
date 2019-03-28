@@ -10,26 +10,17 @@ import TodoList from '../todo-list';
 // }
 
 export default class App extends Component {
+    globalId = 1;
+
     state = {
         todos: [
             {
                 name: 1,
                 text: 1,
                 done: null,
-                id: 1,
+                id: this.globalId,
             },
-            {
-                name: 2,
-                text: 2,
-                done: null,
-                id: 2,
-            },
-            {
-                name: 3,
-                text: 3,
-                done: null,
-                id: 3,
-            },
+            
        ]
     }
     done = (id) => {
@@ -53,6 +44,23 @@ export default class App extends Component {
             };
 
         });
+    }
+    addNewTodoItem = (option) => {
+        const newItem = {
+            name: option.name,
+            text: option.text,
+            done: option.done || null,
+            id: ++this.globalId,
+        }
+        this.setState(({ todos }) => {
+            const newTodos = [
+                ...todos,
+                newItem
+            ];
+            return {
+                todos: newTodos,
+            }
+        })
     }
     delete = (id) => {
         this.setState(({ todos }) => {
@@ -98,7 +106,9 @@ export default class App extends Component {
         return (
             <section>
                 <AppNavbar></AppNavbar>
-                <CardCreate></CardCreate>
+                <CardCreate
+                    onAdd={this.addNewTodoItem}
+                ></CardCreate>
                 <TodoList
                     todos={todos}
                     onDone={this.done}

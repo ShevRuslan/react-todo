@@ -32,6 +32,27 @@ const styles = theme => ({
 });
 
 class CartCreate extends Component {
+    state = {
+        name: '',
+        text: '',
+    }
+    onNameChange = (e) => {
+        this.setState({
+            name: e.target.value
+        })
+    }
+    onTextChange = (e) => {
+        this.setState({
+            text: e.target.value
+        })
+    }
+    onItemAdd = (e) => {
+        e.preventDefault();
+        this.props.onAdd({
+            name: this.state.name,
+            text: this.state.name
+        })
+    }
     render () {
 
         const { classes } = this.props;
@@ -42,10 +63,14 @@ class CartCreate extends Component {
                     <Typography variant="h4" >
                         Создать записку
                     </Typography>
-                    <form className={classes.form}>
+                    <form
+                        className={classes.form}
+                        onSubmit={this.onItemAdd}
+                    >
                         <Input
                             placeholder="Заголовок"
                             className={classes.input}
+                            onChange={this.onNameChange}
                             inputProps={{
                             'aria-label': 'Description',
                             }}
@@ -53,6 +78,7 @@ class CartCreate extends Component {
                         <Input
                             placeholder="Текст"
                             className={classes.input}
+                            onChange={this.onTextChange}
                             inputProps={{
                             'aria-label': 'Description',
                             }}

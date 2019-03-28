@@ -19,7 +19,6 @@ const styles = theme => ({
         minHeight: '120px',
         maxHeight: 'auto',
         position: 'relative',
-        
     },
     menu: {
         padding: '15px'
