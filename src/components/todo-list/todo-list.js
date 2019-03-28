@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import TodoListItem from '../todo-list-item';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -18,20 +18,29 @@ const styles = theme => ({
     }
 });
 
-class TodoList extends Component {
-    render () {
+const TodoList = (props) =>{
 
-        const { classes } = this.props;
-
+    const items = props.todos.map(({name,text, id}) => {
         return (
-            <section className={classes.section}>
-                 <ul className={classes.ul}>
-                    <TodoListItem name="Первая записка" text="Тыц-тыц-тыц"></TodoListItem>
-                    <TodoListItem name="Первая записка" text="Тыц-тыц-тыц"></TodoListItem>
-                 </ul>
-           </section>
+            <TodoListItem
+                key={id}
+                onDone={() => props.onDone(id)}
+                onDelete={() => props.onDelete(id)}
+                onNotDone={() => props.onNotDone(id)}
+                name={name}
+                text={text}
+            />
         )
-    }
+    })
+    const { classes } = props;
+
+    return (
+        <section className={classes.section}>
+             <ul className={classes.ul}>
+                {items}
+             </ul>
+       </section>
+    )
 }
 
 export default withStyles(styles)(TodoList);

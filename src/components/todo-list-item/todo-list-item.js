@@ -94,9 +94,19 @@ class TodoListItem extends Component {
                         onClose={this.handleClose}
                         TransitionComponent={Fade}
                         >
-                        <MenuItem selected onClick={this.handleClose} className={classes.Done} >Выполнено</MenuItem>
-                        <MenuItem onClick={this.handleClose} className={classes.notDone}>Невыполнено</MenuItem>
-                        <MenuItem onClick={this.handleClose} className={classes.delete} >Удалить</MenuItem>
+                        <MenuItem
+                            selected
+                            onClick={(event) => { this.props.onDone(); this.handleClose() }}
+                            className={classes.Done}
+                        >Выполнено</MenuItem>
+                        <MenuItem
+                            onClick={(event) => { this.props.onNotDone(); this.handleClose() }}
+                            className={classes.notDone}
+                        >Невыполнено</MenuItem>
+                        <MenuItem
+                            onClick={(event) => { this.props.onDelete(); this.handleClose() }}
+                            className={classes.delete}
+                        >Удалить</MenuItem>
                     </Menu>
                 </div>
                 <Typography variant="h6">{name}</Typography>
