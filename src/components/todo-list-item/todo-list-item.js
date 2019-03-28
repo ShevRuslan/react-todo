@@ -18,7 +18,8 @@ const styles = theme => ({
         alignItems: 'center',
         minHeight: '120px',
         maxHeight: 'auto',
-        position: 'relative'
+        position: 'relative',
+        
     },
     menu: {
         padding: '15px'
@@ -68,12 +69,15 @@ class TodoListItem extends Component {
     };
     render () {
 
-        const { classes, name, text } = this.props;
+        const { classes, name, text, done } = this.props;
         const { anchorEl } = this.state;
         const open = Boolean(anchorEl);
-
+        let styleDone = null;
+        if (done) { styleDone = {boxShadow: '0px 1px 3px 0px rgba(0, 200, 83, 0.5), 0px 1px 1px 0px rgba(0, 200, 83, 0.4), 0px 2px 1px -1px rgba(0, 200, 83, 0.4)'} }
+        else if(done === false) { styleDone = { boxShadow: '0px 1px 3px 0px rgba(244, 67, 54,0.5), 0px 1px 1px 0px rgba(244, 67, 54,0.4), 0px 2px 1px -1px rgba(244, 67, 54,0.4)' } }
         return (
-            <Card className={classes.card}>
+            
+            <Card style={styleDone} className={classes.card}>
                 <div className={classes.div}>
                     <Button
                         color='primary'

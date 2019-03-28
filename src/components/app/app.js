@@ -15,19 +15,19 @@ export default class App extends Component {
             {
                 name: 1,
                 text: 1,
-                done: false,
+                done: null,
                 id: 1,
             },
             {
                 name: 2,
                 text: 2,
-                done: false,
+                done: null,
                 id: 2,
             },
             {
                 name: 3,
                 text: 3,
-                done: false,
+                done: null,
                 id: 3,
             },
        ]
@@ -47,7 +47,7 @@ export default class App extends Component {
                 newTodoItem,
                 ...todos.slice(index + 1)
             ]
-            
+            console.log(newTodos);
             return {
                 todos: newTodos
             };

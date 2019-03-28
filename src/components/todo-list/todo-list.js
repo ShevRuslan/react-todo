@@ -20,7 +20,7 @@ const styles = theme => ({
 
 const TodoList = (props) =>{
 
-    const items = props.todos.map(({name,text, id}) => {
+    const items = props.todos.map(({name,text, id, ...todoItemProps}) => {
         return (
             <TodoListItem
                 key={id}
@@ -29,6 +29,7 @@ const TodoList = (props) =>{
                 onNotDone={() => props.onNotDone(id)}
                 name={name}
                 text={text}
+                {...todoItemProps}
             />
         )
     })
