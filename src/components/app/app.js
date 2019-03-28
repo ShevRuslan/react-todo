@@ -30,16 +30,29 @@ export default class App extends Component {
        ]
     }
     done = (id) => {
-        console.log(id);
+        
     }
     delete = (id) => {
-        console.log(id);
+        this.setState(({ todos }) => {
+            const index = todos.findIndex((Element) => Element.id === id);
+            
+            const newTodos = [
+                ...todos.slice(0, index),
+                ...todos.slice(index + 1)
+            ];
+            
+            return {
+                todos: newTodos
+            };
+
+        });
     }
     notDone = (id) => {
         console.log(id)
     }
     render() {
-        const{todos} = this.state
+        const { todos } = this.state;
+        console.log(`Всего объектов - ${this.state.todos.length}`);
         return (
             <section>
                 <AppNavbar></AppNavbar>
