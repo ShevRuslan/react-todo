@@ -16,12 +16,13 @@ export default class App extends Component {
         todos: [
             {
                 name: 1,
-                text: 1,
+                text: '1',
                 done: null,
                 id: this.globalId,
             },
             
-       ]
+        ],
+        search: ''
     }
     done = (id) => {
         this.setState(({ todos }) => {
@@ -99,18 +100,28 @@ export default class App extends Component {
 
         });
     }
+    searchInput = (search) => {
+        this.setState({ search });
+    }
+    search = (items, search) => {
+        if (search.length === 0) { return items };
+        return items.filter((item) => {
+            return item.text.toLowerCase().indexOf(search.toLowerCase()) > -1;
+        })
+    }
     render() {
-        const { todos } = this.state;
-        console.log(todos);
-        console.log(`Всего объектов - ${todos.length}`);
+        const { todos, search} = this.state;
+        const items = this.search(todos, search);
         return (
             <section>
-                <AppNavbar></AppNavbar>
+                <AppNavbar
+                    onSearch={this.searchInput}
+                ></AppNavbar>
                 <CardCreate
                     onAdd={this.addNewTodoItem}
                 ></CardCreate>
                 <TodoList
-                    todos={todos}
+                    todos={items}
                     onDone={this.done}
                     onDelete={this.delete}
                     onNotDone={this.notDone}

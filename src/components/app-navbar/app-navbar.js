@@ -68,34 +68,39 @@ const styles = theme => ({
   });
 
 
-class AppNavbar extends Component{
-    render() {
-        const { classes } = this.props;
-        return (
-            <div className={classes.root}>
-            <AppBar position="static" color='primary'>
-                <Toolbar>
-                <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-                    React-todo
-                </Typography>
-                <div className={classes.grow} />
-                <div className={classes.search}>
-                    <div className={classes.searchIcon}>
-                        <SearchIcon />
-                    </div>
-                    <InputBase
-                    placeholder="Поиск"
-                    classes={{
-                        root: classes.inputRoot,
-                        input: classes.inputInput,
-                    }}
-                    />
-                </div>
-                </Toolbar>
-            </AppBar>
-            </div>
-        );
-    }
+class AppNavbar extends Component {
+  searchItem = (e) => {
+    const { onSearch } = this.props;
+    onSearch(e.target.value);
+  }
+  render() {
+      const { classes } = this.props;
+      return (
+          <div className={classes.root}>
+          <AppBar position="static" color='primary'>
+              <Toolbar>
+              <Typography className={classes.title} variant="h6" color="inherit" noWrap>
+                  React-todo
+              </Typography>
+              <div className={classes.grow} />
+              <div className={classes.search}>
+                  <div className={classes.searchIcon}>
+                      <SearchIcon />
+                  </div>
+                <InputBase
+                  onChange={this.searchItem}
+                  placeholder="Поиск"
+                  classes={{
+                      root: classes.inputRoot,
+                      input: classes.inputInput,
+                  }}
+                  />
+              </div>
+              </Toolbar>
+          </AppBar>
+          </div>
+      );
+  }
 }
 
 export default withStyles(styles)(AppNavbar);
