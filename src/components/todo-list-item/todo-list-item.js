@@ -68,7 +68,7 @@ class TodoListItem extends Component {
     };
     render () {
 
-        const { classes, name, text, done } = this.props;
+        const { classes, name, text, done, onDone, onNotDone, onDelete  } = this.props;
         const { anchorEl } = this.state;
         const open = Boolean(anchorEl);
         let styleDone = null;
@@ -99,15 +99,15 @@ class TodoListItem extends Component {
                         >
                         <MenuItem
                             selected
-                            onClick={(event) => { this.props.onDone(); this.handleClose() }}
+                            onClick={() => { onDone(); this.handleClose() }}
                             className={classes.Done}
                         >Выполнено</MenuItem>
                         <MenuItem
-                            onClick={(event) => { this.props.onNotDone(); this.handleClose() }}
+                            onClick={() => { onNotDone(); this.handleClose() }}
                             className={classes.notDone}
                         >Невыполнено</MenuItem>
                         <MenuItem
-                            onClick={(event) => { this.props.onDelete(); this.handleClose() }}
+                            onClick={() => { onDelete(); this.handleClose() }}
                             className={classes.delete}
                         >Удалить</MenuItem>
                     </Menu>
