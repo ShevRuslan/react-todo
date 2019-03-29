@@ -54,7 +54,7 @@ export default class App extends Component {
     }
     componentDidMount = () => {
         const items = JSON.parse(localStorage.getItem('items'));
-        this.globalId = items == null ? 0 : items[items.length - 1].id;
+        this.globalId = items.length === 0 ? 0 : items[items.length - 1].id;
         console.log(this.globalId);
         if (items != null) {
             this.setState(({ todos }) => {
@@ -71,7 +71,7 @@ export default class App extends Component {
     componentDidUpdate = () => {
         localStorage.setItem('items', JSON.stringify(this.state.todos));
         const items = JSON.parse(localStorage.getItem('items'));
-        this.globalId = items == null ? 0 : items[items.length - 1].id;
+        this.globalId = items.length === 0 ? 0 : items[items.length - 1].id;
     }
     delete = (id) => {
         this.setState(({ todos }) => {
