@@ -77,9 +77,17 @@ class AppNavbar extends Component {
       const { classes } = this.props;
       return (
           <div className={classes.root}>
-          <AppBar position="static" color='primary'>
+          <AppBar
+            position="static"
+            color='primary'
+          >
               <Toolbar>
-              <Typography className={classes.title} variant="h6" color="inherit" noWrap>
+              <Typography
+                className={classes.title}
+                variant="h6"
+                color="inherit"
+                noWrap
+              >
                   React-todo
               </Typography>
               <div className={classes.grow} />
