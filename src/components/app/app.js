@@ -2,26 +2,13 @@ import React, { Component } from 'react';
 import AppNavbar from '../app-navbar';
 import CardCreate from '../cart-create';
 import TodoList from '../todo-list';
-//simple component
-// const App = () => {
-//     return (
-//         <div>1</div>
-//     )
-// }
+
 
 export default class App extends Component {
-    globalId = 1;
+    globalId = null;
 
     state = {
-        todos: [
-            {
-                name: 1,
-                text: '1',
-                done: null,
-                id: this.globalId,
-            },
-            
-        ],
+        todos: [],
         search: ''
     }
     done = (id) => {
@@ -53,15 +40,38 @@ export default class App extends Component {
             done: option.done || null,
             id: ++this.globalId,
         }
+        console.log(this.globalId);
         this.setState(({ todos }) => {
             const newTodos = [
                 ...todos,
                 newItem
             ];
+            localStorage.setItem('items', JSON.stringify(newTodos));
             return {
                 todos: newTodos,
             }
         })
+    }
+    componentDidMount = () => {
+        const items = JSON.parse(localStorage.getItem('items'));
+        this.globalId = items == null ? 0 : items[items.length - 1].id;
+        console.log(this.globalId);
+        if (items != null) {
+            this.setState(({ todos }) => {
+                const newTodos = [
+                    ...todos,
+                    ...items
+                ];
+                return {
+                    todos: newTodos,
+                }
+            })
+        }
+    }
+    componentDidUpdate = () => {
+        localStorage.setItem('items', JSON.stringify(this.state.todos));
+        const items = JSON.parse(localStorage.getItem('items'));
+        this.globalId = items == null ? 0 : items[items.length - 1].id;
     }
     delete = (id) => {
         this.setState(({ todos }) => {
