@@ -20,18 +20,18 @@ const styles = theme => ({
 
 const TodoList = (props) =>{
     let items = null;
-
-    if (props.todos.length === 0) {
+    const { todos, onDone, onDelete, onNotDone } = props;
+    if (todos.length === 0) {
         items = <Typography variant="h5">Записки не найдены!</Typography>
     }
     else {
-        items = props.todos.map(({name,text, id, ...todoItemProps}) => {
+        items = todos.map(({name,text, id, ...todoItemProps}) => {
             return (
                 <TodoListItem
                     key={id}
-                    onDone={() => props.onDone(id)}
-                    onDelete={() => props.onDelete(id)}
-                    onNotDone={() => props.onNotDone(id)}
+                    onDone={() => onDone(id)}
+                    onDelete={() => onDelete(id)}
+                    onNotDone={() => onNotDone(id)}
                     name={name}
                     text={text}
                     {...todoItemProps}
