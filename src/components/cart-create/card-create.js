@@ -28,13 +28,23 @@ const styles = theme => ({
         width: '100%',
         marginTop: '30px',
         textAlign: 'center'
+    },
+    error: {
+        color: '#b71c1c',
+        width: '100%',
+        textAlign: 'left',
+        fontSize: '18px',
+        marginTop: '15px'
     }
 });
 
 class CartCreate extends Component {
+    error = null;
+
     state = {
         name: '',
         text: '',
+        error: null,
     }
     onNameChange = (e) => {
         this.setState({
@@ -48,14 +58,29 @@ class CartCreate extends Component {
     }
     onItemAdd = (e) => {
         e.preventDefault();
-        this.props.onAdd({
-            name: this.state.name,
-            text: this.state.name
-        })
+        const { name, text } = this.state;
+        if (name.trim().lenght !== 0 && text.trim().length !== 0) {
+            this.props.onAdd({
+                name: name,
+                text: text
+            })
+            this.setState({
+                name: '',
+                text: '',
+                error: false
+            })
+            this.error = null;
+        }
+        else {
+            this.setState({
+                error: true
+            })
+            this.error = <Typography className={this.props.classes.error} variant="h6" >Поля пустые!</Typography>
+        }
     }
     render () {
-
         const { classes } = this.props;
+        const { name, text } = this.state;
 
         return (
             <div className="wrapper-form">
@@ -69,6 +94,7 @@ class CartCreate extends Component {
                     >
                         <Input
                             placeholder="Заголовок"
+                            value={name}
                             className={classes.input}
                             onChange={this.onNameChange}
                             inputProps={{
@@ -77,6 +103,7 @@ class CartCreate extends Component {
                         />
                         <Input
                             placeholder="Текст"
+                            value={text}
                             className={classes.input}
                             onChange={this.onTextChange}
                             inputProps={{
@@ -91,6 +118,7 @@ class CartCreate extends Component {
                             Создать записку
                         </Button>
                     </form>
+                    {this.error}
                 </Card>
             </div>
         )
