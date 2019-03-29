@@ -19,8 +19,8 @@ export default class App extends Component {
     }
     componentDidMount = () => {
         const items = this.getItemsFromLS();
-        this.globalId = items.length === 0 ? 0 : items[items.length - 1].id;
         if (items != null) {
+            this.globalId = items.length === 0 ? 0 : items[items.length - 1].id;
             this.setState(({ todos }) => {
                 const newTodos = [
                     ...todos,
