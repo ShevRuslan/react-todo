@@ -11,67 +11,45 @@ export default class App extends Component {
         todos: [],
         search: ''
     }
-    done = (id) => {
-        this.setState(({ todos }) => {
-            const index = todos.findIndex((Element) => Element.id === id);
-            
-            const oldTodoItem = todos[index];
-            const newTodoItem = {
-                ...oldTodoItem,
-                done: true,
-            };
-            
-            const newTodos = [
-                ...todos.slice(0, index),
-                newTodoItem,
-                ...todos.slice(index + 1)
-            ]
-            console.log(newTodos);
-            return {
-                todos: newTodos
-            };
-
-        });
+    getItemsFromLS = () => {
+        return JSON.parse(localStorage.getItem('items'));
     }
-    addNewTodoItem = (option) => {
-        const newItem = {
-            name: option.name,
-            text: option.text,
-            done: option.done || null,
-            id: ++this.globalId,
-        }
-        console.log(this.globalId);
-        this.setState(({ todos }) => {
-            const newTodos = [
-                ...todos,
-                newItem
-            ];
-            localStorage.setItem('items', JSON.stringify(newTodos));
-            return {
-                todos: newTodos,
-            }
-        })
+    setItemsInLS = (value) => {
+        localStorage.setItem('items', JSON.stringify(value));
     }
     componentDidMount = () => {
-        const items = JSON.parse(localStorage.getItem('items'));
+        const items = this.getItemsFromLS();
         this.globalId = items.length === 0 ? 0 : items[items.length - 1].id;
-        console.log(this.globalId);
         if (items != null) {
             this.setState(({ todos }) => {
                 const newTodos = [
                     ...todos,
                     ...items
                 ];
-                return {
-                    todos: newTodos,
-                }
+                return {todos: newTodos}
             })
         }
     }
     componentDidUpdate = () => {
-        localStorage.setItem('items', JSON.stringify(this.state.todos));
-        const items = JSON.parse(localStorage.getItem('items'));
+        this.setItemsInLS(this.state.todos);
+        const items = this.getItemsFromLS();
         this.globalId = items.length === 0 ? 0 : items[items.length - 1].id;
+    }
+    addNewTodoItem = ({name, text, done}) => {
+        const newItem = {
+            name: name,
+            text: text,
+            done: done || null,
+            id: ++this.globalId,
+        }
+        this.setState(({ todos }) => {
+            const newTodos = [
+                ...todos,
+                newItem
+            ];
+            this.setItemsInLS(newTodos);
+            return { todos: newTodos }
+        })
     }
     delete = (id) => {
         this.setState(({ todos }) => {
@@ -82,20 +60,24 @@ export default class App extends Component {
                 ...todos.slice(index + 1)
             ];
             
-            return {
-                todos: newTodos
-            };
+            return { todos: newTodos };
 
         });
     }
     notDone = (id) => {
+        this.changeDone(false, id);
+
+    }
+    done = (id) => {
+        this.changeDone(true, id);
+    }
+    changeDone = (bool, id) => {
         this.setState(({ todos }) => {
             const index = todos.findIndex((Element) => Element.id === id);
             
-            const oldTodoItem = todos[index];
             const newTodoItem = {
-                ...oldTodoItem,
-                done: false,
+                ...todos[index],
+                done: bool,
             };
             
             const newTodos = [
@@ -103,10 +85,7 @@ export default class App extends Component {
                 newTodoItem,
                 ...todos.slice(index + 1)
             ]
-            
-            return {
-                todos: newTodos
-            };
+            return { todos: newTodos };
 
         });
     }
